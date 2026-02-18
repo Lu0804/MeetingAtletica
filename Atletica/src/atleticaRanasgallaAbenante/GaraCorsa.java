@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author abenante.lucia
  */
-public class GaraCorsa extends Gara implements IPunteggio{
+public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
 
     private Random rnd = new Random();
 
@@ -47,11 +47,17 @@ public class GaraCorsa extends Gara implements IPunteggio{
         return calcolo(a, punteggio, rnd);
     }
 
+    @Override
+    public double calcoloReazione() {
+        double reazione = rnd.nextDouble(0.13, 0.15);
+        return reazione;
+    }
+
     public double calcolo(Atleta a, double punteggio, Random rnd) {
         if (a.getPrestazione() < 5) {
-            punteggio += rnd.nextInt(5) + 0.5;
+            punteggio += rnd.nextInt(5) + 0.5 + calcoloReazione();
         } else {
-            punteggio -= rnd.nextInt(5) + 0.5;
+            punteggio -= rnd.nextInt(5) + 0.5 + calcoloReazione();
         }
         return punteggio;
     }
