@@ -13,7 +13,7 @@ public class Errore {
         if(p.contains(a)) System.out.println("DUPLICATO");
         else{
             p.add(a);
-        }
+        }   
     }
     public void duplicatiGare(Gara g, ArrayList<Gara> p){
         if(p.contains(g)) System.out.println("DUPLICATO");
