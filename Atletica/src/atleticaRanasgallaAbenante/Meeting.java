@@ -19,4 +19,7 @@ public class Meeting {
         r.duplicatiGare(gara, gare);
     }
     
+    public ArrayList<Gara> getGare() {
+        return gare;
+    }
 }

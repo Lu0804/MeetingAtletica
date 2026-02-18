@@ -14,27 +14,30 @@ import java.util.Random;
 public class GaraSalto extends Gara implements IPunteggio{
 
     private Random rnd = new Random();
+    
+    private int range1, range2;
 
-    public GaraSalto(ArrayList<Atleta> partecipanti, String nome) {
+    public GaraSalto(ArrayList<Atleta> partecipanti, String nome, int range1, int range2) {
         super(partecipanti, nome);
+        this.range1 = range1;
+        this.range2 = range2;
     }
 
    @Override
-    public void graduatoria() {
+    public String graduatoria() {
         // Controlla preliminare
         if (partecipanti.isEmpty()) {// se è vuoto manda un messaggio e fa un return vuoto
-            System.out.println("Nessun partecipante iscritto");
-            return;
+            return "Nessun partecipante iscritto";
         }
-
+        
         // Chiama  metodo per calcolare (ritorna l'array dei punteggi)
         double[] punteggi = calcolaTuttiPunteggi(); //crea un array grande quanto sono i partecipanti 
-
-        //Chiama il metodo per ordinare (modifica sia l'array che la lista)
-        ordinaClassifica(punteggi); //crea un array grande quanto sono i partecipanti 
-
-        // Chiama il metodo per stampare
-        stampaClassifica(punteggi);
+        
+        //C hiama il metodo per ordinare (modifica sia l'array che la lista)
+        ordinaClassifica(punteggi); //crea un array grande quanto sono i partecipanti
+        
+        //restituisce la classifica con i punteggi
+        return stampaClassifica(punteggi);
     }
 
 
@@ -42,7 +45,7 @@ public class GaraSalto extends Gara implements IPunteggio{
         double[] punteggiTemp = new double[partecipanti.size()]; //crea un array grande quanto sono i partecipanti 
          // Calcola punteggio per ogni atleta
         for (int i = 0; i < partecipanti.size(); i++) {
-            punteggiTemp[i] = calcoloPunteggioCorsa(partecipanti.get(i), 9, 13);
+            punteggiTemp[i] = calcoloPunteggioCorsa(partecipanti.get(i), range1, range2);
         }
         return punteggiTemp;//fa il return dell'array
     }
@@ -71,14 +74,13 @@ public class GaraSalto extends Gara implements IPunteggio{
     }
 
     // stampa
-    private void stampaClassifica(double[] punteggi) {
-        System.out.println("Classifica Gara Lancio " + super.getNome() + " ");
+    private String stampaClassifica(double[] punteggi) {
+        String testo = "Classifica " + super.getNome() + "\n\n";
         for (int i = 0; i < partecipanti.size(); i++) {
             Atleta a = partecipanti.get(i);
-            // stampa atleta e punteggio
-            System.out.printf(" Classificato:   | Punteggio: \n", 
-                              (i + 1), a.getNome(), a.getNumero(), a.getNome(), punteggi[i]);
+            testo += String.format("%d° %s (n.%d) - %.2f\n", i + 1, a.getNome(), a.getNumero(), punteggi[i]);
         }
+        return testo;
     }
 
     @Override

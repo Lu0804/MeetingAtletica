@@ -35,5 +35,5 @@ public abstract class Gara {
     
     
     public abstract void iscrizione(Atleta atleta);
-    public abstract void graduatoria();
+    public abstract String graduatoria();
 }

@@ -11,14 +11,19 @@ package atleticaRanasgallaAbenante;
 public class GraficaAtleta extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GraficaAtleta.class.getName());
-
+    private Meeting meeting;
+    private Atleta atletaCorrente;
     /**
      * Creates new form GUI
      */
+    public GraficaAtleta(Meeting meeting) {
+        initComponents();
+        this.meeting = meeting;
+    }
     public GraficaAtleta() {
         initComponents();
+        this.meeting = new Meeting(new java.util.ArrayList<>());
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +47,7 @@ public class GraficaAtleta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iscrizione Atleta");
         setBackground(new java.awt.Color(240, 240, 245));
-        setPreferredSize(new java.awt.Dimension(659, 320));
+        setPreferredSize(new java.awt.Dimension(650, 305));
         setResizable(false);
 
         lblNome.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -130,9 +135,9 @@ public class GraficaAtleta extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(lblPrestazione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txtPrestazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnIscrivi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -144,8 +149,13 @@ public class GraficaAtleta extends javax.swing.JFrame {
         int numero = Integer.parseInt(txtNumero.getText());
         String nazionalita = txtNazionalita.getText();
         int prestazione = Integer.parseInt(txtPrestazione.getText());
-        Atleta a = new Atleta(nome, numero, nazionalita, prestazione);
-        GraficaGara gara = new GraficaGara();
+        atletaCorrente = new Atleta(nome, numero, nazionalita, prestazione);
+        txtNome.setText("");
+        txtNumero.setText("");
+        txtNazionalita.setText("");
+        txtPrestazione.setText("");
+        // passa alla form gara
+        GraficaGara gara = new GraficaGara(meeting, atletaCorrente);
         gara.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIscriviActionPerformed
