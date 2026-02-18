@@ -32,15 +32,34 @@ public class GraficaGara extends javax.swing.JFrame {
         cobTipoGara = new javax.swing.JComboBox<>();
         cobSpecialita = new javax.swing.JComboBox<>();
         btnAvvia = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaGraduatoria = new javax.swing.JTextArea();
+        lblSelezione = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestione Gara");
+        setResizable(false);
 
         cobTipoGara.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corsa", "Lancio", "Salto" }));
+        cobTipoGara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobTipoGaraActionPerformed(evt);
+            }
+        });
 
-        cobSpecialita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "100 metri", "200 metri", "400 metri", "salto in alto", "salto in lungo", "giavellotto", "peso", "disco" }));
+        cobSpecialita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "100 metri", "200 metri", "400 metri", "Salto in alto", "Salto in lungo", "Giavellotto", "Peso", "Disco" }));
+        cobSpecialita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobSpecialitaActionPerformed(evt);
+            }
+        });
 
+        btnAvvia.setBackground(new java.awt.Color(30, 100, 200));
+        btnAvvia.setForeground(new java.awt.Color(255, 255, 255));
         btnAvvia.setText("Avvia");
         btnAvvia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,32 +67,63 @@ public class GraficaGara extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Tipo di gara");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Specialità");
+
+        txaGraduatoria.setEditable(false);
+        txaGraduatoria.setBackground(new java.awt.Color(255, 255, 255));
+        txaGraduatoria.setColumns(20);
+        txaGraduatoria.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        txaGraduatoria.setRows(5);
+        txaGraduatoria.setBorder(javax.swing.BorderFactory.createTitledBorder("Graduatoria"));
+        jScrollPane1.setViewportView(txaGraduatoria);
+
+        lblSelezione.setBackground(new java.awt.Color(240, 240, 245));
+        lblSelezione.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblSelezione.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSelezione.setText("Seleziona la gara");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(115, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
                         .addComponent(cobTipoGara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
+                        .addGap(85, 85, 85)
                         .addComponent(cobSpecialita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAvvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(btnAvvia)))
-                .addContainerGap(337, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(lblSelezione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cobTipoGara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cobSpecialita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(lblSelezione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAvvia)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cobTipoGara)
+                    .addComponent(cobSpecialita))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAvvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -87,6 +137,33 @@ public class GraficaGara extends javax.swing.JFrame {
         //(100, 125) giavellotto, (150, 190) peso, (60, 75) disco
        
     }//GEN-LAST:event_btnAvviaActionPerformed
+
+    private void cobSpecialitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobSpecialitaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cobSpecialitaActionPerformed
+
+    private void cobTipoGaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobTipoGaraActionPerformed
+        // TODO add your handling code here:
+        String tipo = (String) cobTipoGara.getSelectedItem();
+        cobSpecialita.removeAllItems();
+
+        switch (tipo) {
+            case "Corsa":
+                cobSpecialita.addItem("100 metri");
+                cobSpecialita.addItem("200 metri");
+                cobSpecialita.addItem("400 metri");
+                break;
+            case "Salto":
+                cobSpecialita.addItem("Salto in alto");
+                cobSpecialita.addItem("Salto in lungo");
+                break;
+            case "Lancio":
+                cobSpecialita.addItem("Giavellotto");
+                cobSpecialita.addItem("Peso");
+                cobSpecialita.addItem("Disco");
+                break;
+        }
+    }//GEN-LAST:event_cobTipoGaraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,6 +194,11 @@ public class GraficaGara extends javax.swing.JFrame {
     private javax.swing.JButton btnAvvia;
     private javax.swing.JComboBox<String> cobSpecialita;
     private javax.swing.JComboBox<String> cobTipoGara;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblSelezione;
+    private javax.swing.JTextArea txaGraduatoria;
     // End of variables declaration//GEN-END:variables
 }
