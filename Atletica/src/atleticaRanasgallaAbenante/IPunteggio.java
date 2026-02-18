@@ -8,6 +8,6 @@ package atleticaRanasgallaAbenante;
  *
  * @author abenante.lucia
  */
-public interface IPunteggio400 {
-   public abstract double calcoloPunteggio400(Atleta a); 
+public interface IPunteggio {
+   public abstract double calcoloPunteggioCorsa(Atleta a,int range1,int range2); 
 }
