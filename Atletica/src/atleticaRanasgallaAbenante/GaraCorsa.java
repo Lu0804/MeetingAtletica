@@ -29,10 +29,8 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
 
     @Override
     public void iscrizione(Atleta a) {
-        if (partecipanti.contains(a)) {
-        } else {
-            partecipanti.add(a);
-        }
+        Errore r= new Errore ();
+        r.duplicatiAtleta(a, partecipanti);
 
     }
 

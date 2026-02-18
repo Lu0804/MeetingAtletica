@@ -13,14 +13,19 @@ public abstract class Atleta {
     protected int numero;
     protected String nazionalita;
     protected int prestazione;
-    protected String tipoAtleta;
+/**
+ * costruttore
+ * @param nome nome atleta
+ * @param numero numero della maglia
+ * @param nazionalita nazionalità dell'atleta
+ * @param prestazione prestazionedell'atleta
+ */
 
-    public Atleta(String nome, int numero, String nazionalita, int prestazione, String tipoAtleta) {
+    public Atleta(String nome, int numero, String nazionalita, int prestazione) {
         this.nome = nome;
         this.numero = numero;
         this.nazionalita = nazionalita;
         this.prestazione = prestazione;
-        this.tipoAtleta = tipoAtleta;
     }
 
     public String getNome() {
@@ -54,6 +59,4 @@ public abstract class Atleta {
     public void setPrestazione(int prestazione) {
         this.prestazione = prestazione;
     }
-    
-    public abstract void sceltaGara(String tipoGara);
 }
