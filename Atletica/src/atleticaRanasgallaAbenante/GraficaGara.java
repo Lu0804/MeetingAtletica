@@ -81,7 +81,9 @@ public class GraficaGara extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         // if combobox2.text== 100...200...400 passi il range per il rnd che serve per la prestazione
-        //(44, 60) 400, (10, 22) 200, (9, 13)100,
+        //(44, 60) 400, (10, 22) 200, (9, 13)100
+        //(180, 200)Alto, (100, 170) Lungo
+        //(100, 125) giavellotto, (150, 190) peso, (60, 75) disco
        
     }//GEN-LAST:event_jButton1ActionPerformed
 

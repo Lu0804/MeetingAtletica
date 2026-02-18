@@ -36,14 +36,14 @@ public class GaraCorsa extends Gara implements IPunteggio{
     @Override
     /**
      *
-     * @param a
-     * @param range1
-     * @param range2
-     * @return
+     * @param a atleta per prendere la prestazione
+     * @param range1 rannge minimo
+     * @param range2 range massimo
+     * @return tempo della corsa
      */
     public double calcoloPunteggioCorsa(Atleta a, int range1, int range2) {
 
-        double punteggio = rnd.nextInt(44, 60);
+        double punteggio = rnd.nextInt(range1, range2);
         return calcolo(a, punteggio, rnd);
     }
 
