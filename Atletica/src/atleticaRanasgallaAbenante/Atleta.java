@@ -8,7 +8,7 @@ package atleticaRanasgallaAbenante;
  *
  * @author utente
  */
-public abstract class Atleta {
+public class Atleta {
     protected String nome;
     protected int numero;
     protected String nazionalita;
