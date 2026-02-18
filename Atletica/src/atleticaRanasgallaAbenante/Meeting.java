@@ -18,4 +18,5 @@ public class Meeting {
         Errore r = new Errore();
         r.duplicatiGare(gara, gare);
     }
+    
 }

@@ -19,9 +19,66 @@ public class GaraSalto extends Gara implements IPunteggio{
         super(partecipanti, nome);
     }
 
-    @Override
+   @Override
     public void graduatoria() {
+        // Controlla preliminare
+        if (partecipanti.isEmpty()) {// se è vuoto manda un messaggio e fa un return vuoto
+            System.out.println("Nessun partecipante iscritto");
+            return;
+        }
 
+        // Chiama  metodo per calcolare (ritorna l'array dei punteggi)
+        double[] punteggi = calcolaTuttiPunteggi(); //crea un array grande quanto sono i partecipanti 
+
+        //Chiama il metodo per ordinare (modifica sia l'array che la lista)
+        ordinaClassifica(punteggi); //crea un array grande quanto sono i partecipanti 
+
+        // Chiama il metodo per stampare
+        stampaClassifica(punteggi);
+    }
+
+
+    private double[] calcolaTuttiPunteggi() {
+        double[] punteggiTemp = new double[partecipanti.size()]; //crea un array grande quanto sono i partecipanti 
+         // Calcola punteggio per ogni atleta
+        for (int i = 0; i < partecipanti.size(); i++) {
+            punteggiTemp[i] = calcoloPunteggioCorsa(partecipanti.get(i), 9, 13);
+        }
+        return punteggiTemp;//fa il return dell'array
+    }
+
+    
+    
+    private void ordinaClassifica(double[] punteggi) {
+        for (int i = 0; i < partecipanti.size() - 1; i++) {
+            for (int j = 0; j < partecipanti.size() - i - 1; j++) {
+                
+                // Ordine crescente
+                if (punteggi[j] < punteggi[j + 1]) { //confronta i due in poizione i e j 
+                    
+                    // Scambia punteggi
+                    double tempPunt = punteggi[j];//salva la variabile più grande
+                    punteggi[j] = punteggi[j + 1];
+                    punteggi[j + 1] = tempPunt;
+
+                    // Scambia Atleti (sincronizzato col punteggio)
+                    Atleta tempAtl = partecipanti.get(j);//salva latleta con il punteggio più grande
+                    partecipanti.set(j, partecipanti.get(j + 1));
+                    partecipanti.set(j + 1, tempAtl);
+                }
+            }
+        }
+    }
+
+    // stampa
+    private void stampaClassifica(double[] punteggi) {
+        System.out.println("Classifica Gara Lancio " + super.getNome() + " ");
+        for (int i = 0; i < partecipanti.size(); i++) {
+            Atleta a = partecipanti.get(i);
+            // stampa atleta e punteggio
+            System.out.printf(" Classificato:   | Punteggio: \n", 
+                              (i + 1), a.getNome(), a.getNumero(), a.getNome(), punteggi[i]);
+        }
     }
 
     @Override
