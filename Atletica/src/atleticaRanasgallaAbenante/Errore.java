@@ -13,6 +13,11 @@ import javax.swing.JTextField;
 
 public class Errore {
 
+    public Errore(){
+        
+    }
+    
+
     /**
      * metodo per il controllo duplicazione di atletli
      *
