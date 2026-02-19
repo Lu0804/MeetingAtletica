@@ -28,6 +28,8 @@ public class Atleta {
         this.prestazione = prestazione;
     }
 
+    
+    // get e set
     public String getNome() {
         return nome;
     }

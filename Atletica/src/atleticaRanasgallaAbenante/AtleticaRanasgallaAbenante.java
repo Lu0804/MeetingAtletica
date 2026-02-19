@@ -12,6 +12,7 @@ public class AtleticaRanasgallaAbenante {
 
     /**
      * @param args the command line arguments
+     * 
      */
     public static void main(String[] args) {
         GraficaAtleta g = new GraficaAtleta();
