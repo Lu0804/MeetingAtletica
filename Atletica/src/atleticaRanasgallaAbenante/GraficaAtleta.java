@@ -145,6 +145,10 @@ public class GraficaAtleta extends javax.swing.JFrame {
 
     private void btnIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIscriviActionPerformed
         // TODO add your handling code here:
+        Errore r = new Errore();
+        if(r.erroreNome(txtNome) || r.erroreNumero(txtNumero) || r.errorePrestazione(txtPrestazione)|| r.erroreNazionalita(txtNazionalita)){
+            
+        }
         String nome = txtNome.getText();
         int numero = Integer.parseInt(txtNumero.getText());
         String nazionalita = txtNazionalita.getText();

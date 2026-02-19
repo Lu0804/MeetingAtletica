@@ -4,10 +4,13 @@
  */
 package atleticaRanasgallaAbenante;
 import java.util.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author utente
  */
+import javax.swing.JTextField;
 public class Errore {
     /**
      * metodo per il controllo duplicazione di atletli
@@ -37,9 +40,9 @@ public class Errore {
      * @param txtNome campo di testo del nome
      * @return true se valido, false altrimenti
      */
-    public boolean validaNome(JTextField txtNome) {
+    public boolean erroreNome(JTextField txtNome) {
         String nome = txtNome.getText().trim();
-        if (nome.isEmpty()) {
+        if (nome.isEmpty() ) {
             mostraErrore("Il campo Nome non può essere vuoto!");
             txtNome.requestFocus();
             return false;
@@ -57,26 +60,15 @@ public class Errore {
      * @param txtNumero campo di testo del numero
      * @return il numero se valido, -1 altrimenti
      */
-    public int validaNumero(JTextField txtNumero) {
+    public boolean erroreNumero(JTextField txtNumero) {
         String numeroText = txtNumero.getText().trim();
-        if (numeroText.isEmpty()) {
-            mostraErrore("Il campo Numero non può essere vuoto!");
+        int numero = Integer.parseInt(numeroText);
+        if (numeroText.isEmpty() || numero <= 0)  {
+            mostraErrore("Il campo Numero maglia non è valido");
             txtNumero.requestFocus();
-            return -1;
+            return true;
         }
-        try {
-            int numero = Integer.parseInt(numeroText);
-            if (numero <= 0) {
-                mostraErrore("Il Numero deve essere un valore positivo!");
-                txtNumero.requestFocus();
-                return -1;
-            }
-            return numero;
-        } catch (NumberFormatException e) {
-            mostraErrore("Il Numero deve contenere solo cifre numeriche!");
-            txtNumero.requestFocus();
-            return -1;
-        }
+      return false;  
     }
     
     /**
@@ -84,18 +76,14 @@ public class Errore {
      * @param txtNazionalita campo di testo della nazionalità
      * @return true se valido, false altrimenti
      */
-    public boolean validaNazionalita(JTextField txtNazionalita) {
+    public boolean erroreNazionalita(JTextField txtNazionalita) {
         String nazionalita = txtNazionalita.getText().trim();
         if (nazionalita.isEmpty()) {
             mostraErrore("Il campo Nazionalità non può essere vuoto!");
             txtNazionalita.requestFocus();
             return false;
         }
-        if (!nazionalita.matches("^[a-zA-ZÀ-ÿ\\s'-]+$")) {
-            mostraErrore("La Nazionalità può contenere solo lettere!");
-            txtNazionalita.requestFocus();
-            return false;
-        }
+        
         return true;
     }
     
@@ -104,26 +92,15 @@ public class Errore {
      * @param txtPrestazione campo di testo della prestazione
      * @return la prestazione se valida, -1 altrimenti
      */
-    public int validaPrestazione(JTextField txtPrestazione) {
+    public boolean errorePrestazione(JTextField txtPrestazione) {
         String prestazioneText = txtPrestazione.getText().trim();
-        if (prestazioneText.isEmpty()) {
+        int prestazione = Integer.parseInt(prestazioneText);
+        if (prestazioneText.isEmpty() || prestazione <= 0 || prestazione > 11) {
             mostraErrore("Il campo Prestazione non può essere vuoto!");
             txtPrestazione.requestFocus();
-            return -1;
+            return true;
         }
-        try {
-            int prestazione = Integer.parseInt(prestazioneText);
-            if (prestazione <= 0) {
-                mostraErrore("La Prestazione deve essere un valore positivo!");
-                txtPrestazione.requestFocus();
-                return -1;
-            }
-            return prestazione;
-        } catch (NumberFormatException e) {
-            mostraErrore("La Prestazione deve contenere solo cifre numeriche!");
-            txtPrestazione.requestFocus();
-            return -1;
-        }
+        return false;
     }
     
     /**
