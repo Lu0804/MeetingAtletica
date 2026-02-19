@@ -146,15 +146,21 @@ public class GraficaAtleta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIscriviActionPerformed
-        // TODO add your handling code here:
-        Errore r = new Errore();
-        if(r.erroreNome(txtNome) || r.erroreNumero(txtNumero) || r.errorePrestazione(txtPrestazione)|| r.erroreNazionalita(txtNazionalita)){
-             JOptionPane.showMessageDialog(this, 
+         // Crea un'istanza della classe Errore
+            Errore r = new Errore();
+            
+            // Controlla tutti i campi
+            // Se uno qualsiasi ritorna true (c'è un errore), mostra il messaggio
+            if (r.erroreNome(txtNome) || r.erroreNumero(txtNumero) || 
+                r.erroreNazionalita(txtNazionalita) || r.errorePrestazione(txtPrestazione)) {
+                
+                // Mostra il messaggio "Valore non valido"
+                JOptionPane.showMessageDialog(this, 
                     "Valore non valido", 
                     "Errore", 
                     JOptionPane.ERROR_MESSAGE);
                 return; // Esce dal metodo
-        }
+            }
         String nome = txtNome.getText();
         int numero = Integer.parseInt(txtNumero.getText());
         String nazionalita = txtNazionalita.getText();
