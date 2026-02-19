@@ -43,33 +43,9 @@ public class Errore {
         }
     }
 
-    /**
-     * Valida il campo nome
-     *
-     * @param txtNome campo di testo del nome
-     * @return true se valido, false altrimenti
-     */
-    public boolean erroreNome(JTextField txtNome) {
-        String nome = txtNome.getText();
-        if (nome.isEmpty() || nome.matches(".*\\d.*")) {
-            messaggio = "Il campo Nome non può essere vuoto!";
+  
 
-            return false;
-        }
 
-        return true;
-    }
-
-    package atleticaRanasgallaAbenante;
-
-import java.util.ArrayList;
-import javax.swing.JTextField;
-
-public class Errore {
-
-    String messaggio;
-
-    // ... (i metodi duplicatiAtleta e duplicatiGare vanno bene così come li hai scritti) ...
 
     /**
      * Valida il campo nome
@@ -148,4 +124,4 @@ public class Errore {
     }
 }
 
-}
+
