@@ -13,8 +13,6 @@ import javax.swing.JTextField;
 
 public class Errore {
 
-    String messaggio;
-
     /**
      * metodo per il controllo duplicazione di atletli
      *
@@ -43,20 +41,15 @@ public class Errore {
         }
     }
 
-  
-
-
-
     /**
-     * Valida il campo nome
+     * controlla il nome
      *
-     * @return true se c'è un ERRORE, false se è valido
+     * @return true se c'è un errore, false se è valido
      */
     public boolean erroreNome(JTextField txtNome) {
-        String nome = txtNome.getText().trim();
+        String nome = txtNome.getText();
+        // Controlla che nome non sia vuoto e contenga solo numeri ("\\d+") prima di convertirlo 
         if (nome.isEmpty() || nome.matches(".*\\d.*")) {
-            messaggio = "Il campo Nome non può essere vuoto o contenere numeri!";
-            txtNome.requestFocus();
             return true; // Vero = c'è un errore
         }
         return false; // Falso = nessun errore
@@ -65,21 +58,17 @@ public class Errore {
     /**
      * Valida il campo numero
      *
-     * @return true se c'è un ERRORE, false se è valido
+     * @return true se c'è un errore, false se è valido
      */
     public boolean erroreNumero(JTextField txtNumero) {
-        String numeroText = txtNumero.getText().trim();
+        String numeroText = txtNumero.getText();
         // Controlla subito se è vuoto o se contiene qualcosa di diverso da numeri (\d+)
         if (numeroText.isEmpty() || !numeroText.matches("\\d+")) {
-            messaggio = "Il campo Numero maglia non è valido (inserisci solo numeri interi)!";
-            txtNumero.requestFocus();
             return true;
         }
-        
+
         int numero = Integer.parseInt(numeroText);
-        if (numero <= 0) {
-            messaggio = "Il campo Numero maglia deve essere maggiore di 0!";
-            txtNumero.requestFocus();
+        if (numero <= 0) { //Numero maglia deve essere maggiore di 0
             return true;
         }
         return false;
@@ -88,13 +77,12 @@ public class Errore {
     /**
      * Valida il campo nazionalità
      *
-     * @return true se c'è un ERRORE, false se è valido
+     * @return true se c'è un errore, false se è valido
      */
     public boolean erroreNazionalita(JTextField txtNazionalita) {
-        String nazionalita = txtNazionalita.getText().trim();
+        String nazionalita = txtNazionalita.getText();
+        // Controlla che nazionalita non sia vuoto e contenga solo numeri ("\\d+") prima di convertirlo 
         if (nazionalita.isEmpty() || nazionalita.matches(".*\\d.*")) {
-            messaggio = "Il campo Nazionalità non può essere vuoto o contenere numeri!";
-            txtNazionalita.requestFocus();
             return true;
         }
         return false;
@@ -103,25 +91,20 @@ public class Errore {
     /**
      * Valida il campo prestazione
      *
-     * @return true se c'è un ERRORE, false se è valido
+     * @return true se c'è un errore, false se è valido
      */
     public boolean errorePrestazione(JTextField txtPrestazione) {
         String prestazioneText = txtPrestazione.getText().trim();
-        // Controlla che non sia vuoto e contenga solo numeri PRIMA di convertirlo
+        // Controlla che prestazione non sia vuoto e contenga solo numeri ("\\d+") prima di convertirlo 
         if (prestazioneText.isEmpty() || !prestazioneText.matches("\\d+")) {
-            messaggio = "Il campo Prestazione non è valido o è vuoto!";
-            txtPrestazione.requestFocus();
             return true;
         }
 
         int prestazione = Integer.parseInt(prestazioneText);
-        if (prestazione <= 0 || prestazione > 11) {
-            messaggio = "La Prestazione deve essere compresa tra 1 e 11!";
-            txtPrestazione.requestFocus();
+        if (prestazione <= 0 || prestazione >= 10) { //La Prestazione deve essere compresa tra 1 e 10 
             return true;
         }
         return false;
     }
 }
-
 

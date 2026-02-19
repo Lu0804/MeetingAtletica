@@ -9,5 +9,12 @@ package atleticaRanasgallaAbenante;
  * @author abenante.lucia
  */
 public interface IPunteggio {
-   public abstract double calcoloPunteggioCorsa(Atleta a,int range1,int range2); 
+    /**
+     *calcola il punteggio a secondo della gara
+     * @param a atleta per prendere la prestazione
+     * @param range1 rannge minimo
+     * @param range2 range massimo
+     * @return distanza del salto
+     */
+   public abstract double calcoloPunteggio(Atleta a,int range1,int range2); 
 }

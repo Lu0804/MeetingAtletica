@@ -10,19 +10,33 @@ import java.util.Random;
 /**
  *
  * @author abenante.lucia
+ * GaraCorsa che eredita da Gara e implementa IPunteggio e ITempoReazione
  */
 public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
 
     private Random rnd = new Random();
-    
     private int range1, range2;
-
+/**
+ * costruttore
+ * @param partecipanti array di atleti della gara
+ * @param nome nome della gara
+ * @param range1 range del minimo (100 metri = 9, 200 metri = 19, 400 metri =43)
+ * @param range2 range del massimo (100 metri = 13, 200 metri = 25, 400 metri =55)
+ * 
+ * 
+ */
     public GaraCorsa(ArrayList<Atleta> partecipanti, String nome, int range1, int range2) {
         super(partecipanti, nome);
         this.range1 = range1;
         this.range2 = range2;
     }
 
+    
+     /**
+     * override del metodo astratto del calcolo della graduatoria
+     *
+     * @return la graduatoria della gara
+     */
    @Override
     public String graduatoria() {
         // Controlla preliminare
@@ -39,20 +53,32 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
         //restituisce la classifica con i punteggi
         return stampaClassifica(punteggi);
     }
-
-
-    private double[] calcolaTuttiPunteggi() {
+    
+    /**
+     * override del metodo del calcolo punteggio per ogni atleta
+     *
+     * @return un array grande quanto sono i partecipanti con parametri
+     * partecipanti e la loro posizione, i range delle gare a secondo del tipo
+     */
+@Override
+    public double[] calcolaTuttiPunteggi() {
         double[] punteggiTemp = new double[partecipanti.size()]; //crea un array grande quanto sono i partecipanti 
          // Calcola punteggio per ogni atleta
         for (int i = 0; i < partecipanti.size(); i++) {
-            punteggiTemp[i] = calcoloPunteggioCorsa(partecipanti.get(i), range1, range2);
+            punteggiTemp[i] = calcoloPunteggio(partecipanti.get(i), range1, range2);
         }
         return punteggiTemp;//fa il return dell'array
     }
 
     
-    
-    private void ordinaClassifica(double[] punteggi) {
+    /**
+     * override del metodo che a secodno della gare ordina in modo cersente o decrescete gli
+     * atleti con il loro punteggio usando due array paralleli
+     *
+     * @param punteggi array dei punteggi per ogni atleta
+     */
+    @Override
+    public void ordinaClassifica(double[] punteggi) {
         for (int i = 0; i < partecipanti.size() - 1; i++) {
             for (int j = 0; j < partecipanti.size() - i - 1; j++) {
                 
@@ -72,9 +98,17 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
             }
         }
     }
+    
+    
+      /**
+     *override del metodo astratto della stampa della classifica
+     *
+     * @param punteggi array dei punteggi per ogni atleta
+     * @return
+     */
 
-    // stampa
-    private String stampaClassifica(double[] punteggi) {
+    @Override
+    public String stampaClassifica(double[] punteggi) {
         String testo = "Classifica " + super.getNome() + "\n\n";
         for (int i = 0; i < partecipanti.size(); i++) {
             Atleta a = partecipanti.get(i);
@@ -82,7 +116,10 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
         }
         return testo;
     }
-   
+   /**
+    * override del metodo iscrizione per iscrivere un atlteta alla gara (errore controlla i duplicati)
+    * @param a 
+    */
     
     @Override
     public void iscrizione(Atleta a) {
@@ -91,26 +128,39 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
 
     }
 
-    @Override
+@Override
     /**
-     *
+     * 
      * @param a atleta per prendere la prestazione
      * @param range1 rannge minimo
      * @param range2 range massimo
      * @return tempo della corsa
      */
-    public double calcoloPunteggioCorsa(Atleta a, int range1, int range2) {
+    public double calcoloPunteggio(Atleta a, int range1, int range2) {
 
         double punteggio = rnd.nextInt(range1, range2);
         return calcolo(a, punteggio, rnd);
     }
-
+    
+    /**
+     * Override del metodo dell'interfaccia ITempoReazione dove aggiunge del tempo di reazione randomico al punteggio
+     * @return 
+     */
     @Override
     public double calcoloReazione() {
         double reazione = rnd.nextDouble(0.13, 0.15);
         return reazione;
     }
-
+    
+     /**
+     * Override del  metodo astratto per il calcolo del punteggio del singolo atleta
+     *
+     * @param a Atleta
+     * @param punteggio il puntaggio da calcolare
+     * @param rnd randome per il range
+     * @return il punteggio del singolo atleta
+     */
+@Override
     public double calcolo(Atleta a, double punteggio, Random rnd) {
         if (a.getPrestazione() < 5) {
             punteggio += rnd.nextInt(5) + 0.5 + calcoloReazione();
