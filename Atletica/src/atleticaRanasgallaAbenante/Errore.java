@@ -42,7 +42,7 @@ public class Errore {
     }
 
     /**
-     * controlla il nome
+     * metodo per il controllo il nome
      *
      * @return true se c'è un errore, false se è valido
      */
@@ -56,7 +56,7 @@ public class Errore {
     }
 
     /**
-     * Valida il campo numero
+     * metodo per il controllo del numero maglia
      *
      * @return true se c'è un errore, false se è valido
      */
@@ -75,7 +75,7 @@ public class Errore {
     }
 
     /**
-     * Valida il campo nazionalità
+     * metodo per il controllo della nazionalità
      *
      * @return true se c'è un errore, false se è valido
      */
@@ -89,7 +89,7 @@ public class Errore {
     }
 
     /**
-     * Valida il campo prestazione
+     *metodo per il controllo della Prestazione
      *
      * @return true se c'è un errore, false se è valido
      */
