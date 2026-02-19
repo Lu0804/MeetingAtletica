@@ -147,7 +147,11 @@ public class GraficaAtleta extends javax.swing.JFrame {
         // TODO add your handling code here:
         Errore r = new Errore();
         if(r.erroreNome(txtNome) || r.erroreNumero(txtNumero) || r.errorePrestazione(txtPrestazione)|| r.erroreNazionalita(txtNazionalita)){
-            
+             JOptionPane.showMessageDialog(this, 
+                    "Valore non valido", 
+                    "Errore", 
+                    JOptionPane.ERROR_MESSAGE);
+                return; // Esce dal metodo
         }
         String nome = txtNome.getText();
         int numero = Integer.parseInt(txtNumero.getText());
