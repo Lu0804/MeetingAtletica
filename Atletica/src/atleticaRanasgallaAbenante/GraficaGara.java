@@ -17,74 +17,93 @@ public class GraficaGara extends javax.swing.JFrame {
     /**
      * Creates new form GraficaGara
      */
+    /**
+     * Costruttore della form
+     * Riceve il Meeting condiviso e l'atleta corrente dalla GraficaAtleta
+     * @param meeting
+     * @param atleta 
+     */
     public GraficaGara(Meeting meeting, Atleta atleta) {
         initComponents();
-        this.meeting = meeting;
-        this.atletaCorrente = atleta;
+        this.meeting = meeting; //salva il meeting condiviso tra le due form
+        this.atletaCorrente = atleta; //salva l'atleta da iscrivere alla gara
         cobTipoGaraActionPerformed(null);
     }
 
+    /**
+     * metodo privato per i due bottoni Avvia e Mostra Graduatoria per iscrivere l'atleta
+     */
     private void iscriviAtleta() {
-    String tipo = (String) cobTipoGara.getSelectedItem();
-    String specialita = (String) cobSpecialita.getSelectedItem();
-    int r1, r2;
-
-    switch (specialita) {
-        case "100 metri":
-            r1 = 9;
-            r2 = 13;
-            break;
-        case "200 metri":
-            r1 = 19;
-            r2 = 25;
-            break;
-        case "400 metri":
-            r1 = 43;
-            r2 = 55;
-            break; 
-        case "Salto in alto":
-            r1 = 170;
-            r2 = 210;
-            break; 
-        case "Salto in lungo":
-            r1 = 550;
-            r2 = 750;
-            break; 
-        case "Giavellotto":
-            r1 = 50;
-            r2 = 80;
-            break; 
-        case "Peso":
-            r1 = 10;
-            r2 = 18;
-            break; 
-        case "Disco":
-            r1 = 30;
-            r2 = 55;
-            break; 
-        default:
-            r1 = 0;
-            r2 = 0;
-            break;
-    }
-
-    Gara garaCorrente = null;
-    for (Gara g : meeting.getGare()) {
-        if (g.getNome().equals(specialita)) {
-            garaCorrente = g;
-            break;
+        // prende il valore nelle due combo box
+        String tipo = (String) cobTipoGara.getSelectedItem();
+        String specialita = (String) cobSpecialita.getSelectedItem();
+        int r1, r2; //range minimo e massimo per calcolare il punteggio
+        
+        //assegna il range  a seconda della specialita scelta
+        switch (specialita) {
+            case "100 metri":
+                r1 = 9;
+                r2 = 13;
+                break;
+            case "200 metri":
+                r1 = 19;
+                r2 = 25;
+                break;
+            case "400 metri":
+                r1 = 43;
+                r2 = 55;
+                break;
+            case "Salto in alto":
+                r1 = 170;
+                r2 = 210;
+                break;
+            case "Salto in lungo":
+                r1 = 550;
+                r2 = 750;
+                break;
+            case "Giavellotto":
+                r1 = 50;
+                r2 = 80;
+                break;
+            case "Peso":
+                r1 = 10;
+                r2 = 18;
+                break;
+            case "Disco":
+                r1 = 30;
+                r2 = 55;
+                break;
+            default:
+                r1 = 0;
+                r2 = 0;
+                break;
         }
-    }
-    if (garaCorrente == null) {
-        switch (tipo) {
-            case "Corsa":  garaCorrente = new GaraCorsa(new java.util.ArrayList<>(), specialita, r1, r2);  break;
-            case "Lancio": garaCorrente = new GaraLancio(new java.util.ArrayList<>(), specialita, r1, r2); break;
-            case "Salto":  garaCorrente = new GaraSalto(new java.util.ArrayList<>(), specialita, r1, r2);  break;
+
+        // cerca se esiste gia una gara in quella specialita
+        Gara garaCorrente = null;
+        for (Gara g : meeting.getGare()) {
+            if (g.getNome().equals(specialita)) {
+                garaCorrente = g;
+                break;
+            }
         }
-        meeting.aggiungiGara(garaCorrente);
+        //se non esiste la crea
+        if (garaCorrente == null) {
+            switch (tipo) {
+                case "Corsa":
+                    garaCorrente = new GaraCorsa(new java.util.ArrayList<>(), specialita, r1, r2);
+                    break;
+                case "Lancio":
+                    garaCorrente = new GaraLancio(new java.util.ArrayList<>(), specialita, r1, r2);
+                    break;
+                case "Salto":
+                    garaCorrente = new GaraSalto(new java.util.ArrayList<>(), specialita, r1, r2);
+                    break;
+            }
+            meeting.aggiungiGara(garaCorrente);
+        }
+        garaCorrente.iscrizione(atletaCorrente);
     }
-    garaCorrente.iscrizione(atletaCorrente);
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,9 +241,10 @@ public class GraficaGara extends javax.swing.JFrame {
 
     private void cobTipoGaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobTipoGaraActionPerformed
         // TODO add your handling code here:
-        String tipo = (String) cobTipoGara.getSelectedItem();
-        cobSpecialita.removeAllItems();
+        String tipo = (String) cobTipoGara.getSelectedItem(); //prende il tipo di gara dalla combo box
+        cobSpecialita.removeAllItems(); //rimuove tutti gli elementi che ci sono all'interno della combo box di specialita
 
+        //dal tipo aggiunge le gare alla combo box specialita
         switch (tipo) {
             case "Corsa":
                 cobSpecialita.addItem("100 metri");
@@ -246,11 +266,11 @@ public class GraficaGara extends javax.swing.JFrame {
     private void btnMostraGraduatorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostraGraduatorieActionPerformed
         // TODO add your handling code here:
         iscriviAtleta();
-        String testo = "";
+        String testo = ""; //cancella le scritte che c'era prima in caso ci fossero
         for (Gara g : meeting.getGare()) {
-            testo += g.graduatoria() + "\n";
+            testo += g.graduatoria() + "\n"; //aggiunge la stringa dal metodo graduatoria
         }
-        txaGraduatoria.setText(testo);
+        txaGraduatoria.setText(testo); //iserisce il testo nella text area
     }//GEN-LAST:event_btnMostraGraduatorieActionPerformed
 
     /**

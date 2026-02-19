@@ -18,10 +18,17 @@ public class GraficaAtleta extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
+    /**
+     * Costruttore che riceve un meeting esistente quando si torna dalla GraficaGara
+     * @param meeting 
+     */
     public GraficaAtleta(Meeting meeting) {
         initComponents();
-        this.meeting = meeting;
+        this.meeting = meeting; // salva il meeting condiviso tra le due form
     }
+    /**
+     * Costruttore usato all'avvio per creare un nuovo Meeting vuoto
+     */
     public GraficaAtleta() {
         initComponents();
         this.meeting = new Meeting(new java.util.ArrayList<>());
@@ -161,19 +168,24 @@ public class GraficaAtleta extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
                 return; // Esce dal metodo
             }
+        // prende i valori dai campi di testo
         String nome = txtNome.getText();
         int numero = Integer.parseInt(txtNumero.getText());
         String nazionalita = txtNazionalita.getText();
         int prestazione = Integer.parseInt(txtPrestazione.getText());
-        atletaCorrente = new Atleta(nome, numero, nazionalita, prestazione);
+        
+        atletaCorrente = new Atleta(nome, numero, nazionalita, prestazione); // crea l'atleta
+        
+        // cancella le scritte nei textfield per il prossimo atleta
         txtNome.setText("");
         txtNumero.setText("");
         txtNazionalita.setText("");
         txtPrestazione.setText("");
-        // passa alla form gara
+        
+        // apre la form gara passando il meeting condiviso e l'atleta appena creato
         GraficaGara gara = new GraficaGara(meeting, atletaCorrente);
         gara.setVisible(true);
-        this.dispose();
+        this.dispose();// chiude la form attuale
     }//GEN-LAST:event_btnIscriviActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
