@@ -21,8 +21,70 @@ public class GraficaGara extends javax.swing.JFrame {
         initComponents();
         this.meeting = meeting;
         this.atletaCorrente = atleta;
+        cobTipoGaraActionPerformed(null);
     }
 
+    private void iscriviAtleta() {
+    String tipo = (String) cobTipoGara.getSelectedItem();
+    String specialita = (String) cobSpecialita.getSelectedItem();
+    int r1, r2;
+
+    switch (specialita) {
+        case "100 metri":
+            r1 = 9;
+            r2 = 13;
+            break;
+        case "200 metri":
+            r1 = 19;
+            r2 = 25;
+            break;
+        case "400 metri":
+            r1 = 43;
+            r2 = 55;
+            break; 
+        case "Salto in alto":
+            r1 = 170;
+            r2 = 210;
+            break; 
+        case "Salto in lungo":
+            r1 = 550;
+            r2 = 750;
+            break; 
+        case "Giavellotto":
+            r1 = 50;
+            r2 = 80;
+            break; 
+        case "Peso":
+            r1 = 10;
+            r2 = 18;
+            break; 
+        case "Disco":
+            r1 = 30;
+            r2 = 55;
+            break; 
+        default:
+            r1 = 0;
+            r2 = 0;
+            break;
+    }
+
+    Gara garaCorrente = null;
+    for (Gara g : meeting.getGare()) {
+        if (g.getNome().equals(specialita)) {
+            garaCorrente = g;
+            break;
+        }
+    }
+    if (garaCorrente == null) {
+        switch (tipo) {
+            case "Corsa":  garaCorrente = new GaraCorsa(new java.util.ArrayList<>(), specialita, r1, r2);  break;
+            case "Lancio": garaCorrente = new GaraLancio(new java.util.ArrayList<>(), specialita, r1, r2); break;
+            case "Salto":  garaCorrente = new GaraSalto(new java.util.ArrayList<>(), specialita, r1, r2);  break;
+        }
+        meeting.aggiungiGara(garaCorrente);
+    }
+    garaCorrente.iscrizione(atletaCorrente);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +97,7 @@ public class GraficaGara extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         cobTipoGara = new javax.swing.JComboBox<>();
         cobSpecialita = new javax.swing.JComboBox<>();
-        btnAvvia = new javax.swing.JButton();
+        btnContinua = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -63,12 +125,12 @@ public class GraficaGara extends javax.swing.JFrame {
             }
         });
 
-        btnAvvia.setBackground(new java.awt.Color(30, 100, 200));
-        btnAvvia.setForeground(new java.awt.Color(255, 255, 255));
-        btnAvvia.setText("Avvia");
-        btnAvvia.addActionListener(new java.awt.event.ActionListener() {
+        btnContinua.setBackground(new java.awt.Color(30, 100, 200));
+        btnContinua.setForeground(new java.awt.Color(255, 255, 255));
+        btnContinua.setText("Continua");
+        btnContinua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAvviaActionPerformed(evt);
+                btnContinuaActionPerformed(evt);
             }
         });
 
@@ -111,7 +173,7 @@ public class GraficaGara extends javax.swing.JFrame {
                         .addComponent(cobTipoGara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
                         .addComponent(cobSpecialita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAvvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnContinua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(131, 131, 131)
@@ -135,7 +197,7 @@ public class GraficaGara extends javax.swing.JFrame {
                     .addComponent(cobTipoGara)
                     .addComponent(cobSpecialita))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAvvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnContinua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,85 +208,13 @@ public class GraficaGara extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
+    private void btnContinuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuaActionPerformed
         // TODO add your handling code here:
-        // if combobox2.text== 100...200...400 passi il range per il rnd che serve per la prestazione
-        //(44, 60) 400, (10, 22) 200, (9, 13)100
-        //(180, 200)Alto, (100, 170) Lungo
-        //(100, 125) giavellotto, (150, 190) peso, (60, 75) disco
-        String tipo = (String) cobTipoGara.getSelectedItem();
-        String specialita = (String) cobSpecialita.getSelectedItem();
-        int r1, r2;
-
-        switch (specialita) {
-            case "100 metri":
-                r1 = 9;
-                r2 = 13;
-                break;
-            case "200 metri":
-                r1 = 10;
-                r2 = 22;
-                break;
-            case "400 metri":
-                r1 = 44;
-                r2 = 60;
-                break;
-            case "Salto in alto":
-                r1 = 180;
-                r2 = 200;
-                break;
-            case "Salto in lungo":
-                r1 = 100;
-                r2 = 170;
-                break;
-            case "Giavellotto":
-                r1 = 100;
-                r2 = 125;
-                break;
-            case "Peso":
-                r1 = 150;
-                r2 = 190;
-                break;
-            case "Disco":
-                r1 = 60;
-                r2 = 75;
-                break;
-            default:
-                r1 = 9;
-                r2 = 13;
-                break;
-        }
-
-        // cerca se la gara esiste già nel meeting, altrimenti la crea
-        Gara garaCorrente = null;
-        for (Gara g : meeting.getGare()) {
-            if (g.getNome().equals(specialita)) {
-                garaCorrente = g;
-                break;
-            }
-        }
-        if (garaCorrente == null) {
-            switch (tipo) {
-                case "Corsa":
-                    garaCorrente = new GaraCorsa(new java.util.ArrayList<>(), specialita, r1, r2);
-                    break;
-                case "Lancio":
-                    garaCorrente = new GaraLancio(new java.util.ArrayList<>(), specialita, r1, r2);
-                    break;
-                case "Salto":
-                    garaCorrente = new GaraSalto(new java.util.ArrayList<>(), specialita, r1, r2);
-                    break;
-            }
-            meeting.aggiungiGara(garaCorrente);
-        }
-
-        garaCorrente.iscrizione(atletaCorrente);
-
-        // torna alla form atleta
+        iscriviAtleta();
         GraficaAtleta atleta = new GraficaAtleta(meeting);
         atleta.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnAvviaActionPerformed
+    }//GEN-LAST:event_btnContinuaActionPerformed
 
     private void cobSpecialitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobSpecialitaActionPerformed
         // TODO add your handling code here:
@@ -255,6 +245,7 @@ public class GraficaGara extends javax.swing.JFrame {
 
     private void btnMostraGraduatorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostraGraduatorieActionPerformed
         // TODO add your handling code here:
+        iscriviAtleta();
         String testo = "";
         for (Gara g : meeting.getGare()) {
             testo += g.graduatoria() + "\n";
@@ -288,7 +279,7 @@ public class GraficaGara extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAvvia;
+    private javax.swing.JButton btnContinua;
     private javax.swing.JButton btnMostraGraduatorie;
     private javax.swing.JComboBox<String> cobSpecialita;
     private javax.swing.JComboBox<String> cobTipoGara;
