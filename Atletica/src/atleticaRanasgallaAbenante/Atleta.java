@@ -29,7 +29,7 @@ public class Atleta {
     }
 
     
-    // get e set
+ // Get & Set
     public String getNome() {
         return nome;
     }

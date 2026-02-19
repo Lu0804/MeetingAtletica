@@ -15,6 +15,7 @@ public class AtleticaRanasgallaAbenante {
      * 
      */
     public static void main(String[] args) {
+        //crea e avviala form GraficaAtleta
         GraficaAtleta g = new GraficaAtleta();
         g.setVisible(true);
     }
