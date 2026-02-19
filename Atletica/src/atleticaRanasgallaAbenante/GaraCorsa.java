@@ -163,9 +163,9 @@ public class GaraCorsa extends Gara implements IPunteggio, ITempoReazione {
 @Override
     public double calcolo(Atleta a, double punteggio, Random rnd) {
         if (a.getPrestazione() < 5) {
-            punteggio += rnd.nextInt(5) + 0.5 + calcoloReazione();
+            punteggio += rnd.nextInt(5) + 0.5 + calcoloReazione();//se la prestazione è minore di 5 penalizza aggiungendo al punteggio (tempo) 
         } else {
-            punteggio -= rnd.nextInt(5) + 0.5 + calcoloReazione();
+            punteggio -= rnd.nextInt(5) + 0.5 + calcoloReazione();//sse è maggiore di 5 agevola e sottrae al punteggio (tempo) 
         }
         return punteggio;
     }

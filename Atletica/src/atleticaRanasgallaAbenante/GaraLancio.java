@@ -168,9 +168,9 @@ public class GaraLancio extends Gara implements IPunteggio,  ITempoReazione{
     @Override
     public double calcolo(Atleta a, double punteggio, Random rnd) {
         if (a.getPrestazione() < 5) {
-            punteggio += rnd.nextInt(5) + 0.5;
+            punteggio -= rnd.nextInt(5) + 0.5; //se la prestazione è minore di 5, penalizza sottrae al punteggio (distanza)
         } else {
-            punteggio -= rnd.nextInt(5) + 0.5;
+            punteggio +=  rnd.nextInt(5) + 0.5;// se è maggiore di 5 agevola e aggiungendo al punteggio (distanza)
         }
         return punteggio;
     }
