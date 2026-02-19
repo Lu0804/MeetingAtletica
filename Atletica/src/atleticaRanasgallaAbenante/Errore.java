@@ -42,16 +42,12 @@ public class Errore {
      */
     public boolean erroreNome(JTextField txtNome) {
         String nome = txtNome.getText().trim();
-        if (nome.isEmpty() ) {
+        if (nome.isEmpty() || nome.matches(".*\\d.*") ) {
             mostraErrore("Il campo Nome non può essere vuoto!");
             txtNome.requestFocus();
             return false;
         }
-        if (!nome.matches("^[a-zA-ZÀ-ÿ\\s'-]+$")) {
-            mostraErrore("Il Nome può contenere solo lettere, spazi, apostrofi e trattini!");
-            txtNome.requestFocus();
-            return false;
-        }
+        
         return true;
     }
     
@@ -62,9 +58,16 @@ public class Errore {
      */
     public boolean erroreNumero(JTextField txtNumero) {
         String numeroText = txtNumero.getText().trim();
-        int numero = Integer.parseInt(numeroText);
-        if (numeroText.isEmpty() || numero <= 0)  {
+       
+        if (numeroText.isEmpty() || numeroText.matches(".*[a-zA-Z].*"))  {
             mostraErrore("Il campo Numero maglia non è valido");
+            txtNumero.requestFocus();
+            return true;
+            
+        }
+         int numero = Integer.parseInt(numeroText);
+        if (|| numero <= 0 ){
+         mostraErrore("Il campo Numero maglia non è valido");
             txtNumero.requestFocus();
             return true;
         }
@@ -78,7 +81,7 @@ public class Errore {
      */
     public boolean erroreNazionalita(JTextField txtNazionalita) {
         String nazionalita = txtNazionalita.getText().trim();
-        if (nazionalita.isEmpty()) {
+        if (nazionalita.isEmpty() || nazionalita.matches(".*\\d.*")) {
             mostraErrore("Il campo Nazionalità non può essere vuoto!");
             txtNazionalita.requestFocus();
             return false;
@@ -95,8 +98,14 @@ public class Errore {
     public boolean errorePrestazione(JTextField txtPrestazione) {
         String prestazioneText = txtPrestazione.getText().trim();
         int prestazione = Integer.parseInt(prestazioneText);
-        if (prestazioneText.isEmpty() || prestazione <= 0 || prestazione > 11) {
+        if (prestazioneText.isEmpty()) {
             mostraErrore("Il campo Prestazione non può essere vuoto!");
+            txtPrestazione.requestFocus();
+            return true;
+        }
+
+        if  (prestazione <= 0 || prestazione > 11) {
+        mostraErrore("Il campo Prestazione non può essere vuoto!");
             txtPrestazione.requestFocus();
             return true;
         }
