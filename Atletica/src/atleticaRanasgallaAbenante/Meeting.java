@@ -26,6 +26,14 @@ public class Meeting {
         Errore r = new Errore();
         r.duplicatiGare(gara, gare);
     }
+/**
+ * metodo set per le gare 
+ * @param gare arraylist gare
+ */
+    public void setGare(ArrayList<Gara> gare) {
+        this.gare = gare;
+    }
+    
     /**
      * metodo get per le gare 
      * @return arraylist gare
