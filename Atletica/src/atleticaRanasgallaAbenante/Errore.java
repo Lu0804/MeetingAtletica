@@ -60,24 +60,49 @@ public class Errore {
         return true;
     }
 
+    package atleticaRanasgallaAbenante;
+
+import java.util.ArrayList;
+import javax.swing.JTextField;
+
+public class Errore {
+
+    String messaggio;
+
+    // ... (i metodi duplicatiAtleta e duplicatiGare vanno bene così come li hai scritti) ...
+
+    /**
+     * Valida il campo nome
+     *
+     * @return true se c'è un ERRORE, false se è valido
+     */
+    public boolean erroreNome(JTextField txtNome) {
+        String nome = txtNome.getText().trim();
+        if (nome.isEmpty() || nome.matches(".*\\d.*")) {
+            messaggio = "Il campo Nome non può essere vuoto o contenere numeri!";
+            txtNome.requestFocus();
+            return true; // Vero = c'è un errore
+        }
+        return false; // Falso = nessun errore
+    }
+
     /**
      * Valida il campo numero
      *
-     * @param txtNumero campo di testo del numero
-     * @return il numero se valido, -1 altrimenti
+     * @return true se c'è un ERRORE, false se è valido
      */
     public boolean erroreNumero(JTextField txtNumero) {
-        String numeroText = txtNumero.getText();
-
-        if (numeroText.isEmpty() || numeroText.matches(".*[a-zA-Z].*")) {
-            messaggio = "Il campo Numero maglia non è valido";
+        String numeroText = txtNumero.getText().trim();
+        // Controlla subito se è vuoto o se contiene qualcosa di diverso da numeri (\d+)
+        if (numeroText.isEmpty() || !numeroText.matches("\\d+")) {
+            messaggio = "Il campo Numero maglia non è valido (inserisci solo numeri interi)!";
             txtNumero.requestFocus();
             return true;
-
         }
+        
         int numero = Integer.parseInt(numeroText);
         if (numero <= 0) {
-            messaggio = "Il campo Numero maglia non è valido";
+            messaggio = "Il campo Numero maglia deve essere maggiore di 0!";
             txtNumero.requestFocus();
             return true;
         }
@@ -87,41 +112,40 @@ public class Errore {
     /**
      * Valida il campo nazionalità
      *
-     * @param txtNazionalita campo di testo della nazionalità
-     * @return true se valido, false altrimenti
+     * @return true se c'è un ERRORE, false se è valido
      */
     public boolean erroreNazionalita(JTextField txtNazionalita) {
-        String nazionalita = txtNazionalita.getText();
+        String nazionalita = txtNazionalita.getText().trim();
         if (nazionalita.isEmpty() || nazionalita.matches(".*\\d.*")) {
-            messaggio = "Il campo Nazionalità non può essere vuoto!";
-
-            return false;
+            messaggio = "Il campo Nazionalità non può essere vuoto o contenere numeri!";
+            txtNazionalita.requestFocus();
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
      * Valida il campo prestazione
      *
-     * @param txtPrestazione campo di testo della prestazione
-     * @return se prestazione ha valori validi
+     * @return true se c'è un ERRORE, false se è valido
      */
     public boolean errorePrestazione(JTextField txtPrestazione) {
-        String prestazioneText = txtPrestazione.getText();
-        int prestazione = Integer.parseInt(prestazioneText);
-        if (prestazioneText.isEmpty()) {
-            messaggio = "Il campo Prestazione non può essere vuoto!";
-
+        String prestazioneText = txtPrestazione.getText().trim();
+        // Controlla che non sia vuoto e contenga solo numeri PRIMA di convertirlo
+        if (prestazioneText.isEmpty() || !prestazioneText.matches("\\d+")) {
+            messaggio = "Il campo Prestazione non è valido o è vuoto!";
+            txtPrestazione.requestFocus();
             return true;
         }
 
+        int prestazione = Integer.parseInt(prestazioneText);
         if (prestazione <= 0 || prestazione > 11) {
-            messaggio = "Il campo Prestazione non può essere vuoto!";
-
+            messaggio = "La Prestazione deve essere compresa tra 1 e 11!";
+            txtPrestazione.requestFocus();
             return true;
         }
         return false;
     }
+}
 
 }
